@@ -2,7 +2,7 @@
 import { useContext, useRef, useState, useEffect, useCallback } from "react"
 import { Box, Stack, Typography } from "@mui/material";
 import anime from 'animejs';
-import { GameHistoryType, HistoryCardsType, IContent } from "../types/intex";
+import { CurrentGameType, GameHistoryType, HistoryCardsType, IContent } from "../types/intex";
 import { Categories, ColorCategories, HiLoCalc, HiLoCategories, HistoryCards, OptionCategories } from "../config";
 import BackCard from "../assets/img/-1.png"
 import { toast } from "react-toastify";
@@ -77,7 +77,7 @@ const Content = ({ setLoPercent, setHiPercent, setLoMulti, setHiMulti, betAmount
 
 
     const betGame = async () => {
-        let gameResult = await axios.post(`${process.env.REACT_APP_SERVER_API}/game/bet-game`, {
+        let gameResult = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/game/bet-game`, {
             bet_Amount, selected_Id, betFlag, hMulti, lMulti
         })
 
@@ -94,7 +94,7 @@ const Content = ({ setLoPercent, setHiPercent, setLoMulti, setHiMulti, betAmount
 
     useEffect(() => {
         if (effectFlag && socket) {
-            socket.on("real-time", (data: { time: number, gameHistory: GameHistoryType[] }) => {
+            socket.on("real-time", (data: { time: number, gameHistory: GameHistoryType[], currentGame: CurrentGameType[] }) => {
                 setHistoryCard(data.gameHistory)
                 if (data.time === 1) {
                     setDisableBet!(true)

@@ -5,6 +5,7 @@ import { MyContext, PercentMulti } from "../context/GameContext";
 import { Categories, ColorCategories, HiLoCategories, KeyboardNumbers, OptionCategories } from "../config";
 import { CategoriesType, ColorCategoriesType, HiLoCategoriesType, KeyboardNumbersType, OptionCategoriesType } from "../types/intex";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 interface IControlPanel {
     hPercent: number;
@@ -21,7 +22,7 @@ const ControlPanel: React.FC<IControlPanel> = ({ hPercent, lPercent, hMulti, lMu
     const { setIsBetted, isBetted, disableBet, setDisableBet, selectedId, setSelectedId } = useContext(PercentMulti)
 
 
-    const StartBet = () => {
+    const StartBet = async () => {
         if (isBetted) {
             var fund = funds + Number(betAmount)
             setIsBetted!(false)
@@ -38,8 +39,12 @@ const ControlPanel: React.FC<IControlPanel> = ({ hPercent, lPercent, hMulti, lMu
                 } else if (betAmount > funds) {
                     toast.error("Not enough funds, please make a deposit")
                 } else {
+                    let gameResult = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/game/bet-game-ready`, {
+                        userId: 71028664, selectedId, betAmount
+                    })
+                    console.log(gameResult, 'gameResult')
                     var leftFunds = funds - betAmount
-                    // setDisableBet!(true)
+                    setDisableBet!(true)
                     setFunds!(leftFunds);
                     setIsBetted!(!isBetted)
                     toast.success("Your Bet is placed")

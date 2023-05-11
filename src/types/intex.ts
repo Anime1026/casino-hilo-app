@@ -63,3 +63,9 @@ export interface GameHistoryType {
   flag: number;
 }
 
+export interface CurrentGameType {
+  userId: number;
+  betId: number;
+  betAmount: number;
+  isWin: Boolean;
+}
