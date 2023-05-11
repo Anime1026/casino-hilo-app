@@ -7,6 +7,7 @@ import Content from "../components/Content";
 import { GameHistoryType } from "../types/intex";
 import { PercentMulti } from "../context/GameContext";
 import ControlPanel from "../components/ControlPanel";
+import BetHistory from "../components/History";
 
 let flag = false;
 
@@ -54,6 +55,9 @@ const Dashboard = () => {
             betAmount={betAmount}
             setBetAmount={setBetAmount}
           />
+        </Grid>
+        <Grid md={12} item>
+          <BetHistory />
         </Grid>
       </Grid>
     </Stack >
