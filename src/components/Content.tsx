@@ -77,7 +77,7 @@ const Content = ({ setLoPercent, setHiPercent, setLoMulti, setHiMulti, betAmount
 
 
     const betGame = async () => {
-        let gameResult = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/game/bet-game`, {
+        let gameResult = await axios.post(`${process.env.REACT_APP_SERVER_API}/game/bet-game`, {
             bet_Amount, selected_Id, betFlag, hMulti, lMulti
         })
 
