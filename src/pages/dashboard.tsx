@@ -4,10 +4,11 @@ import io from "socket.io-client";
 import { Grid, Stack } from "@mui/material";
 
 import Content from "../components/Content";
-import { GameHistoryType } from "../types/intex";
+import { BetHistoryType, CurrentGameType, GameHistoryType } from "../types/intex";
 import { PercentMulti } from "../context/GameContext";
 import ControlPanel from "../components/ControlPanel";
 import BetHistory from "../components/History";
+import { v4 as uuidv4 } from "uuid"
 
 let flag = false;
 
@@ -18,7 +19,9 @@ const Dashboard = () => {
   const [hMulti, setHiMulti] = useState<number>(1.5);
   const [lMulti, setLoMulti] = useState<number>(4);
   const [betAmount, setBetAmount] = useState<number>(100);
+  const [betHistory, setBetHistory] = useState<BetHistoryType[]>([]);
   const { socket, setSocket } = useContext(PercentMulti);
+
 
   const load = async () => {
     let socketConnection: any = io(process.env.REACT_APP_SERVER_URL as string);
@@ -27,11 +30,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (flag) {
+      if (!sessionStorage.getItem("hilo-uuid")) {
+        sessionStorage.setItem("hilo-uuid", uuidv4())
+      }
       load()
     } else {
       flag = true;
     }
-  }, [flag])
+  }, [])
 
   return (
     <Stack className="dashboard">
@@ -44,6 +50,7 @@ const Dashboard = () => {
             setLoPercent={setLoPercent}
             betAmount={betAmount}
             setBetAmount={setBetAmount}
+            setBetHistory={setBetHistory}
           />
         </Grid>
         <Grid md={4} sm={12} xs={12} item className="desktop">
@@ -57,7 +64,7 @@ const Dashboard = () => {
           />
         </Grid>
         <Grid md={12} item>
-          <BetHistory />
+          <BetHistory betHistory={betHistory} />
         </Grid>
       </Grid>
     </Stack >

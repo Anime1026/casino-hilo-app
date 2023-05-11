@@ -2,7 +2,7 @@
 import { useContext, useRef, useState, useEffect, useCallback } from "react"
 import { Box, Stack, Typography } from "@mui/material";
 import anime from 'animejs';
-import { CurrentGameType, GameHistoryType, HistoryCardsType, IContent } from "../types/intex";
+import { BetHistoryType, CurrentGameType, GameHistoryType, HistoryCardsType, IContent } from "../types/intex";
 import { Categories, ColorCategories, HiLoCalc, HiLoCategories, HistoryCards, OptionCategories } from "../config";
 import BackCard from "../assets/img/-1.png"
 import { toast } from "react-toastify";
@@ -15,8 +15,9 @@ let bet_Amount = 100;
 let selected_Id = 18;
 let hMulti = 1.5
 let lMulti = 4
+let betHistory: BetHistoryType[] = []
 
-const Content = ({ setLoPercent, setHiPercent, setLoMulti, setHiMulti, betAmount, setBetAmount }: any) => {
+const Content = ({ setLoPercent, setHiPercent, setLoMulti, setHiMulti, betAmount, setBetAmount, setBetHistory }: any) => {
 
     const { setIsBetted, isBetted, setDisableBet, selectedId, socket, setSelectedId } = useContext(PercentMulti);
 
@@ -78,8 +79,18 @@ const Content = ({ setLoPercent, setHiPercent, setLoMulti, setHiMulti, betAmount
 
     const betGame = async () => {
         let gameResult = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/game/bet-game`, {
-            bet_Amount, selected_Id, betFlag, hMulti, lMulti
+            bet_Amount, selected_Id, betFlag, hMulti, lMulti, uuid: sessionStorage.getItem("hilo-uuid")
         })
+
+        let arr = {
+            betId: selected_Id,
+            betAmount: bet_Amount,
+            isWin: gameResult.data.Bet_Amount
+        }
+
+        betHistory.unshift(arr)
+
+        setBetHistory(betHistory);
 
         if (gameResult.data.Bet_Amount === 0) {
             betFlag = false;
@@ -88,7 +99,7 @@ const Content = ({ setLoPercent, setHiPercent, setLoMulti, setHiMulti, betAmount
             setBetAmount(0)
             toast.error("Try Again")
         } else {
-            setBetAmount(gameResult.data.Bet_Amount.toFixed())
+            setBetAmount(Number(gameResult.data.Bet_Amount.toFixed()))
         }
     }
 

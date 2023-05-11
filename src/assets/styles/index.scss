@@ -484,6 +484,27 @@
     }
   }
 
+  .game-history {
+    background: transparent !important;
+    border-radius: 6px;
+
+    .history-appbar {
+      margin: 10px;
+
+      .current-bet-active {
+        text-transform: none;
+        background: linear-gradient(95.31deg, #ffd102 4.92%, #ff5202);
+        border-radius: 20px;
+      }
+
+      .current-history-Unactive {
+        border-radius: 20px;
+        text-transform: none;
+        background: transparent !important;
+      }
+    }
+  }
+
   @media screen and (max-width:768px) {
     .dashboard {
       padding-top: 90px;

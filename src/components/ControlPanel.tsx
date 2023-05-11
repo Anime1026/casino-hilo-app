@@ -40,9 +40,8 @@ const ControlPanel: React.FC<IControlPanel> = ({ hPercent, lPercent, hMulti, lMu
                     toast.error("Not enough funds, please make a deposit")
                 } else {
                     let gameResult = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/game/bet-game-ready`, {
-                        userId: 71028664, selectedId, betAmount
+                        userId: 71028664, selectedId, betAmount, uuid: sessionStorage.getItem("hilo-uuid")
                     })
-                    console.log(gameResult, 'gameResult')
                     var leftFunds = funds - betAmount
                     setDisableBet!(true)
                     setFunds!(leftFunds);

@@ -67,5 +67,11 @@ export interface CurrentGameType {
   userId: number;
   betId: number;
   betAmount: number;
-  isWin: Boolean;
+  isWin: number;
+}
+
+export interface BetHistoryType {
+  betId: number;
+  betAmount: number;
+  isWin: number;
 }
