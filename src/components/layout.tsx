@@ -14,11 +14,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isBetted, setIsBetted] = useState<Boolean>(false);
   const [disableBet, setDisableBet] = useState<Boolean>(false);
   const [userId, setUserId] = useState<number>(0);
-  const location = useLocation();
+  const locations = useLocation();
   var flag = false;
   // new URLSearchParams(location.search());
-  let token = location.pathname.split("=")[1];
-  console.log(token,'token----------------')
+  let token = document.location.href.split("=")[1];
+  console.log(token, 'token----------------')
   const getUserInfo = async () => {
     let userInfo: any = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/api/game/get-userInfo`,
