@@ -18,7 +18,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   var flag = false;
   // new URLSearchParams(location.search());
   let token = document.location.href.split("=")[1];
-  console.log(token, 'token----------------')
   const getUserInfo = async () => {
     let userInfo: any = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/api/game/get-userInfo`,
@@ -33,7 +32,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (flag) {
-      console.log("---------------------------------call")
       getUserInfo();
     } else {
       flag = true;
