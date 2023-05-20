@@ -55,12 +55,19 @@ const Content = ({
   const FlipCard = useCallback(async (rndNumber: number) => {
     // Create animation timeline
     const timeline = anime.timeline({
-      autoplay: false,
+      autoplay: true,
     });
 
     timeline.add({
       targets: CardRef.current,
-      rotateY: { value: "+=360" },
+      rotateY: { value: "+=180" },
+      easing: "easeInOutSine",
+      duration: 1000,
+    });
+
+    timeline.add({
+      targets: CardRef.current,
+      rotateY: 0,
       easing: "easeInOutSine",
       duration: 1000,
     });
