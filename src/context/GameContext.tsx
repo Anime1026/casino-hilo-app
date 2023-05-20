@@ -1,26 +1,32 @@
 import { createContext } from "react";
 
 interface IMyContext {
-    funds: number;
-    setFunds?: (funds: number) => void;
+  funds: number;
+  setFunds?: (funds: number) => void;
+  userId: number;
+  setUserId?: (funds: number) => void;
 }
 
 export const MyContext = createContext<IMyContext>({
-    funds: 50000
+  funds: 0,
+  userId: 0,
 });
 
 interface IPercentMulti {
-    disableBet: Boolean;
-    isBetted: Boolean;
-    selectedId: number;
-    socket: any;
-    setIsBetted?: (isBetted: Boolean) => void;
-    setDisableBet?: (disableBet: Boolean) => void;
-    setSelectedId?: (selectedId: number) => void;
-    setSocket?: (socket: any) => void;
+  disableBet: Boolean;
+  isBetted: Boolean;
+  selectedId: number;
+  socket: any;
+  setIsBetted?: (isBetted: Boolean) => void;
+  setDisableBet?: (disableBet: Boolean) => void;
+  setSelectedId?: (selectedId: number) => void;
+  setSocket?: (socket: any) => void;
 }
 const value = {
-    disableBet: false, isBetted: false, selectedId: 18, socket: ""
-}
+  disableBet: false,
+  isBetted: false,
+  selectedId: 18,
+  socket: "",
+};
 
-export const PercentMulti = createContext<IPercentMulti>(value)
+export const PercentMulti = createContext<IPercentMulti>(value);
