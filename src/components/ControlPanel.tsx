@@ -37,7 +37,7 @@ const ControlPanel: React.FC<IControlPanel> = ({
   setBetAmount,
 }: any) => {
   // @ts-ignore
-  const { funds, setFunds } = useContext(MyContext);
+  const { funds, setFunds, userId } = useContext(MyContext);
   const {
     setIsBetted,
     isBetted,
@@ -45,15 +45,21 @@ const ControlPanel: React.FC<IControlPanel> = ({
     setDisableBet,
     selectedId,
     setSelectedId,
+    setContinueFlag,
   } = useContext(PercentMulti);
 
   const StartBet = async () => {
     if (isBetted) {
       var fund = funds + Number(betAmount);
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/api/game/update-balance`,
+        { userId, fund }
+      );
       setIsBetted!(false);
       setSelectedId!(100);
       setFunds!(fund);
       setBetAmount(0);
+      setContinueFlag!(false);
       toast.success(`You Won the ${betAmount}`);
     } else {
       if (selectedId !== undefined && selectedId !== 100) {
@@ -68,6 +74,7 @@ const ControlPanel: React.FC<IControlPanel> = ({
           setDisableBet!(true);
           setFunds!(leftFunds);
           setIsBetted!(!isBetted);
+          setContinueFlag!(false);
           toast.success("Your Bet is placed");
         }
       } else {

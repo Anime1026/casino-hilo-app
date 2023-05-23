@@ -17,12 +17,15 @@ interface IPercentMulti {
   isBetted: Boolean;
   selectedId: number;
   socket: any;
+  continueFlag: Boolean;
   setIsBetted?: (isBetted: Boolean) => void;
   setDisableBet?: (disableBet: Boolean) => void;
   setSelectedId?: (selectedId: number) => void;
   setSocket?: (socket: any) => void;
+  setContinueFlag?: (continueFlag: Boolean) => void;
 }
 const value = {
+  continueFlag: false,
   disableBet: false,
   isBetted: false,
   selectedId: 18,

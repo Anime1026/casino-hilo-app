@@ -22,6 +22,24 @@
     background: #000;
   }
 
+  .refund{
+    height: 100%;
+    text-transform: none !important;
+    background: linear-gradient(95.31deg, #ffd102 4.92%, #ff5202) !important;
+    border-radius: 20px !important;
+    padding: 10px 30px !important;
+    color: white !important;
+    font-weight: 800;
+  }
+
+    .history-table-head tr th{
+      min-width: 50px !important;
+    }
+
+    .history-table-tbody tr th{
+      min-width: 50px !important;
+    }
+
   .header {
     align-items: center;
     display: flex;

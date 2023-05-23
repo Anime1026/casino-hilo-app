@@ -22,6 +22,7 @@ let hMulti = 1.5;
 let lMulti = 4;
 let user_Id = 0;
 let betHistory: BetHistoryType[] = [];
+let c_flag: Boolean = false;
 
 const Content = ({
   setLoPercent,
@@ -39,6 +40,8 @@ const Content = ({
     selectedId,
     socket,
     setSelectedId,
+    continueFlag,
+    setContinueFlag,
   } = useContext(PercentMulti);
 
   const { userId } = useContext(MyContext);
@@ -115,6 +118,7 @@ const Content = ({
         lMulti,
         uuid: sessionStorage.getItem("hilo-uuid"),
         userId: user_Id,
+        continueFlag: c_flag,
       }
     );
 
@@ -129,13 +133,17 @@ const Content = ({
     setBetHistory(betHistory);
 
     if (gameResult.data.Bet_Amount === 0) {
+      c_flag = false;
+      setContinueFlag!(false);
       betFlag = false;
       setIsBetted!(false);
       bet_Amount = 0;
       setBetAmount(0);
       toast.error("Try Again");
     } else {
-      setBetAmount(Number(gameResult.data.Bet_Amount.toFixed()));
+      c_flag = true;
+      setContinueFlag!(true);
+      setBetAmount(Number(Number(gameResult.data.Bet_Amount).toFixed()));
     }
   };
 
@@ -171,6 +179,11 @@ const Content = ({
       effectFlag = true;
     }
   }, [effectFlag]);
+
+  useEffect(() => {
+    console.log(continueFlag, "continueFlag");
+    c_flag = continueFlag;
+  }, [continueFlag]);
 
   return (
     <Stack className="content">
