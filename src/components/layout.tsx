@@ -33,6 +33,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (flag) {
+      console.log(888877);
       getUserInfo();
     } else {
       flag = true;
