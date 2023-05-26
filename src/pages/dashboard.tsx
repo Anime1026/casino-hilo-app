@@ -5,10 +5,11 @@ import { Grid, Stack } from "@mui/material";
 
 import Content from "../components/Content";
 import { BetHistoryType } from "../types/intex";
-import { PercentMulti } from "../context/GameContext";
+import { MyContext, PercentMulti } from "../context/GameContext";
 import ControlPanel from "../components/ControlPanel";
 import BetHistory from "../components/History";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 let flag = false;
 
@@ -19,12 +20,33 @@ const Dashboard = () => {
   const [lMulti, setLoMulti] = useState<number>(4);
   const [betAmount, setBetAmount] = useState<number>(100);
   const [betHistory, setBetHistory] = useState<BetHistoryType[]>([]);
-  const { setSocket } = useContext(PercentMulti);
+  const { setSocket, socket } = useContext(PercentMulti);
+  const { userId } = useContext(MyContext);
 
   const load = async () => {
     let socketConnection: any = io(process.env.REACT_APP_SERVER_URL as string);
     setSocket!(socketConnection);
   };
+
+  const SaveSocketId = async (userId: number, socketId: String) => {
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/game/save-socketId`, {
+        userId,
+        socketId,
+      })
+      .then((result) => {
+        console.log(result, "result");
+      })
+      .catch((error) => {
+        console.log(error, "error---------");
+      });
+  };
+
+  useEffect(() => {
+    if (userId !== 0 && socket) {
+      SaveSocketId(userId, socket.id);
+    }
+  }, [userId, socket]);
 
   useEffect(() => {
     if (flag) {
