@@ -25,7 +25,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         token,
       }
     );
-    if (userInfo.data.balance == 0) {
+    if (userInfo.data.balance === "0") {
       setdepositFlag(true);
     }
 
