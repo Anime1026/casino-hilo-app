@@ -23,8 +23,9 @@ const Dashboard = () => {
   const { setSocket, socket } = useContext(PercentMulti);
   const { userId } = useContext(MyContext);
 
+  let socketConnection: any = null; 
   const load = async () => {
-    let socketConnection: any = io(process.env.REACT_APP_SERVER_URL as string);
+    socketConnection = io(process.env.REACT_APP_SERVER_URL as string);
     setSocket!(socketConnection);
   };
 
@@ -43,20 +44,18 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if (userId !== 0 && socket) {
-      SaveSocketId(userId, socket.id);
+    if (!socketConnection) {
+      if (userId !== 0 && socket) {
+        SaveSocketId(userId, socket.id);
+      }
     }
   }, [userId, socket]);
 
   useEffect(() => {
-    if (flag) {
       if (!sessionStorage.getItem("hilo-uuid")) {
         sessionStorage.setItem("hilo-uuid", uuidv4());
       }
       load();
-    } else {
-      flag = true;
-    }
   }, []);
 
   return (
