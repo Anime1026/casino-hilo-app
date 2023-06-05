@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 
 import { Grid, Stack } from "@mui/material";
 
@@ -23,7 +23,7 @@ const Dashboard = () => {
   const { setSocket, socket } = useContext(PercentMulti);
   const { userId } = useContext(MyContext);
 
-  let socketConnection: any = null; 
+  let socketConnection: Socket;
   const load = async () => {
     socketConnection = io(process.env.REACT_APP_SERVER_URL as string);
     setSocket!(socketConnection);
@@ -52,10 +52,10 @@ const Dashboard = () => {
   }, [userId, socket]);
 
   useEffect(() => {
-      if (!sessionStorage.getItem("hilo-uuid")) {
-        sessionStorage.setItem("hilo-uuid", uuidv4());
-      }
-      load();
+    if (!sessionStorage.getItem("hilo-uuid")) {
+      sessionStorage.setItem("hilo-uuid", uuidv4());
+    }
+    load();
   }, []);
 
   return (
