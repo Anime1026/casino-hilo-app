@@ -53,7 +53,7 @@ const ControlPanel: React.FC<IControlPanel> = ({
       var fund = funds + Number(betAmount);
       await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/api/game/update-balance`,
-        { userId, fund, betAmount, selectedId }
+        { userId, selectedId }
       );
       setIsBetted!(false);
       setSelectedId!(100);
