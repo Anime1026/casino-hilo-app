@@ -5,7 +5,7 @@ import { Container } from "@mui/system";
 import { Stack } from "@mui/material";
 import { MyContext, PercentMulti } from "../context/GameContext";
 import axios from "axios";
-let flag = false;
+let flag = true;
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [socket, setSocket] = useState<any>("");
   const [funds, setFunds] = useState<number>(0);
@@ -36,8 +36,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (flag) {
       getUserInfo();
-    } else {
-      flag = true;
+      flag = false;
     }
   }, []);
 
