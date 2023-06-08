@@ -13,6 +13,7 @@ import BackCard from "../assets/img/-1.png";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { MyContext, PercentMulti } from "../context/GameContext";
+
 let effectFlag = false;
 let prevNumber = 4;
 let betFlag: Boolean = false;
