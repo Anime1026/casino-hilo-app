@@ -163,6 +163,15 @@ export default function HistoryTable({ betHistory }: any) {
                                 {value === -1 ? "Ready!" : value}
                               </TableCell>
                             );
+                          } else if (column.id === "betAmount") {
+                            return (
+                              <TableCell
+                                key={column.id}
+                                align={column.align}
+                              >
+                                {value / 100}
+                              </TableCell>
+                            );
                           } else if (column.id === "betId") {
                             const categoriesArray = [
                               Categories,
@@ -245,7 +254,7 @@ export default function HistoryTable({ betHistory }: any) {
                                 align={column.align}
                                 sx={{ color: value ? "green" : "red" }}
                               >
-                                {value === -1 ? "Ready!" : value}
+                                {value === -1 ? "Ready!" : value/100}
                               </TableCell>
                             );
                           } else if (column.id === "betId") {
@@ -272,6 +281,15 @@ export default function HistoryTable({ betHistory }: any) {
                                 );
                               }
                             }
+                          } else if (column.id === "betAmount") {
+                            return (
+                              <TableCell
+                                key={column.id}
+                                align={column.align}
+                              >
+                                {value / 100}
+                              </TableCell>
+                            );
                           } else {
                             return (
                               <TableCell key={column.id} align={column.align}>

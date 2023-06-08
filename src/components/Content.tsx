@@ -143,6 +143,7 @@ const Content = ({
     } else {
       c_flag = true;
       setContinueFlag!(true);
+      bet_Amount = Number(Number(gameResult.data.Bet_Amount).toFixed());
       setBetAmount(Number(Number(gameResult.data.Bet_Amount).toFixed()));
     }
   };
