@@ -160,7 +160,7 @@ export default function HistoryTable({ betHistory }: any) {
                                 align={column.align}
                                 sx={{ color: value ? "green" : "red" }}
                               >
-                                {value === -1 ? "Ready!" : value}
+                                {value === -1 ? "Ready!" : value / 100}
                               </TableCell>
                             );
                           } else if (column.id === "betAmount") {
@@ -184,6 +184,7 @@ export default function HistoryTable({ betHistory }: any) {
                               const foundItem = categoriesArray[i].find(
                                 (item) => item.id === value
                               );
+                              console.log(value, foundItem, 'value=====')
 
                               if (foundItem) {
                                 return (
@@ -254,7 +255,7 @@ export default function HistoryTable({ betHistory }: any) {
                                 align={column.align}
                                 sx={{ color: value ? "green" : "red" }}
                               >
-                                {value === -1 ? "Ready!" : value/100}
+                                {value === -1 ? "Ready!" : value / 100}
                               </TableCell>
                             );
                           } else if (column.id === "betId") {
