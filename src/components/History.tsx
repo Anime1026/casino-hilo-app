@@ -240,7 +240,10 @@ export default function HistoryTable({ betHistory }: any) {
                   ))}
                 </TableRow>
               </TableHead>
-              <TableBody>
+                <TableBody>
+                  {
+                    console.log(betHistory,'-------------betHistory-----------------')
+                  }
                 {betHistory
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row: any, key: number) => {

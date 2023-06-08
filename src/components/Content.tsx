@@ -13,6 +13,7 @@ import BackCard from "../assets/img/-1.png";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { MyContext, PercentMulti } from "../context/GameContext";
+import { dir } from "console";
 
 let effectFlag = false;
 let prevNumber = 4;
@@ -228,7 +229,7 @@ const Content = ({
         <Box className="card-animation-scene" ref={CardRef}>
           <Box className="card-front">
             <img
-              src={`/Card/${curCard}.png`}
+              src={process.env.REACT_APP_SERVER_URL +`/Card/${curCard}.png`}
               alt="card"
               className="playing-card"
             />
