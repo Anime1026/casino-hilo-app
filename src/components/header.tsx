@@ -49,7 +49,7 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
         userId,
       })
       .then((res) => {
-        document.location.href = "http://annie.ihk.vipnps.vip/iGaming-web/#/";
+        document.location.href = "https://induswin.com/#/";
       })
       .catch((error) => {
         console.log(error);
