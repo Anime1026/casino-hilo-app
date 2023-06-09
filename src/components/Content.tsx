@@ -130,6 +130,8 @@ const Content = ({
       isWin: gameResult.data.Bet_Amount,
     };
 
+    console.log(arr,'bethistoryCompoent---------------------')
+
     betHistory.unshift(arr);
 
     setBetHistory(betHistory);

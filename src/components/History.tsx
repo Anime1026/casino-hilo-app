@@ -160,7 +160,7 @@ export default function HistoryTable({ betHistory }: any) {
                                 align={column.align}
                                 sx={{ color: value ? "green" : "red" }}
                               >
-                                {value === -1 ? "Ready!" : value / 100}
+                                {value === -1 ? "Ready!" : Number(value / 100).toFixed(2)}
                               </TableCell>
                             );
                           } else if (column.id === "betAmount") {
@@ -169,7 +169,7 @@ export default function HistoryTable({ betHistory }: any) {
                                 key={column.id}
                                 align={column.align}
                               >
-                                {value / 100}
+                                {Number(value / 100).toFixed(2)}
                               </TableCell>
                             );
                           } else if (column.id === "betId") {
@@ -201,8 +201,8 @@ export default function HistoryTable({ betHistory }: any) {
                             return (
                               <TableCell key={column.id} align={column.align}>
                                 {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
+                                  ? column.format(Number(value).toFixed(2))
+                                  : Number(value).toFixed(2)}
                               </TableCell>
                             );
                           }
@@ -258,7 +258,7 @@ export default function HistoryTable({ betHistory }: any) {
                                 align={column.align}
                                 sx={{ color: value ? "green" : "red" }}
                               >
-                                {value === -1 ? "Ready!" : value}
+                                {value === -1 ? "Ready!" : Number(value).toFixed(2)}
                               </TableCell>
                             );
                           } else if (column.id === "betId") {
@@ -289,7 +289,7 @@ export default function HistoryTable({ betHistory }: any) {
                           } else {
                             return (
                               <TableCell key={column.id} align={column.align}>
-                                {value}
+                                {Number(value).toFixed(2)}
                               </TableCell>
                             );
                           }
