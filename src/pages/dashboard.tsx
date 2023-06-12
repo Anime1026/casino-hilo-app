@@ -31,21 +31,22 @@ const Dashboard = () => {
 
   const SaveSocketId = async (userId: number, socketId: String) => {
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/api/game/save-socketId`, {
-        userId,
-        socketId,
-      })
-      .then((result) => {
+    .post(`${process.env.REACT_APP_SERVER_URL}/api/game/save-socketId`, {
+      userId,
+      socketId,
+    })
+    .then((result) => {
         console.log(result, "result");
       })
       .catch((error) => {
         console.log(error, "error---------");
       });
-  };
-
-  useEffect(() => {
+    };
+    
+    useEffect(() => {
     if (!socketConnection) {
       if (userId !== 0 && socket) {
+        console.log(userId, socket.id, '---------------------------------', socket)
         SaveSocketId(userId, socket.id);
       }
     }
