@@ -93,7 +93,7 @@ export default function HistoryTable({ betHistory }: any) {
     } else {
       effectFlag = true;
     }
-  }, [effectFlag]);
+  }, [effectFlag,socket]);
 
   return (
     <>
