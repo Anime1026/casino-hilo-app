@@ -184,7 +184,6 @@ export default function HistoryTable({ betHistory }: any) {
                               const foundItem = categoriesArray[i].find(
                                 (item) => item.id === value
                               );
-                              console.log(value, foundItem, 'value=====')
 
                               if (foundItem) {
                                 return (
@@ -201,8 +200,8 @@ export default function HistoryTable({ betHistory }: any) {
                             return (
                               <TableCell key={column.id} align={column.align}>
                                 {column.format && typeof value === "number"
-                                  ? column.format(Number(value).toFixed(2))
-                                  : Number(value).toFixed(2)}
+                                  ? column.format(value)
+                                  : value}
                               </TableCell>
                             );
                           }
@@ -241,9 +240,6 @@ export default function HistoryTable({ betHistory }: any) {
                 </TableRow>
               </TableHead>
                 <TableBody>
-                  {
-                    console.log(betHistory,'-------------betHistory-----------------')
-                  }
                 {betHistory
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row: any, key: number) => {

@@ -130,8 +130,6 @@ const Content = ({
       isWin: gameResult.data.Bet_Amount,
     };
 
-    console.log(arr,'bethistoryCompoent---------------------')
-
     betHistory.unshift(arr);
 
     setBetHistory(betHistory);
@@ -231,7 +229,7 @@ const Content = ({
         <Box className="card-animation-scene" ref={CardRef}>
           <Box className="card-front">
             <img
-              src={process.env.REACT_APP_SERVER_URL +`/Card/${curCard}.png`}
+              src={`/hilo/Card/${curCard}.png`}
               alt="card"
               className="playing-card"
             />
