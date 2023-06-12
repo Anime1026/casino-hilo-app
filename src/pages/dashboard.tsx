@@ -24,39 +24,44 @@ const Dashboard = () => {
   const { userId } = useContext(MyContext);
 
   let socketConnection: Socket;
-  const load = async () => {
-    socketConnection = io(process.env.REACT_APP_SERVER_URL as string);
-    setSocket!(socketConnection);
-  };
+  // const load = async () => {
+  //   socketConnection = io(process.env.REACT_APP_SERVER_URL as string);
+  //   setSocket!(socketConnection);
+  // };
 
-  const SaveSocketId = async (userId: number, socketId: String) => {
-    axios
-    .post(`${process.env.REACT_APP_SERVER_URL}/api/game/save-socketId`, {
-      userId,
-      socketId,
-    })
-    .then((result) => {
-        console.log(result, "result");
-      })
-      .catch((error) => {
-        console.log(error, "error---------");
-      });
-    };
-    
-    useEffect(() => {
-    if (!socketConnection) {
-      if (userId !== 0 && socket) {
-        console.log(userId, socket.id, '---------------------------------', socket)
-        SaveSocketId(userId, socket.id);
-      }
+  // const SaveSocketId = async (userId: number, socketId: String) => {
+  //   axios
+  //     .post(`${process.env.REACT_APP_SERVER_URL}/api/game/save-socketId`, {
+  //       userId,
+  //       socketId,
+  //     })
+  //     .then((result) => {
+  //       console.log(result, "result");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error, "error---------");
+  //     });
+  // };
+
+  useEffect(() => {
+    // if (!socketConnection) {
+    //   if (userId !== 0 && socket) {
+    //     SaveSocketId(userId, socket.id);
+    //   }
+    // }
+    if (userId) {
+      console.log(userId, "userId")
+      socketConnection = io(process.env.REACT_APP_SERVER_URL as string, { query: { userId } });
+      // let socketConnection = io(BASE_URL, { query: { auth: token } });
+      console.log(socketConnection, "socketConnection")
+      setSocket!(socketConnection)
     }
-  }, [userId, socket]);
+  }, [userId]);
 
   useEffect(() => {
     if (!sessionStorage.getItem("hilo-uuid")) {
       sessionStorage.setItem("hilo-uuid", uuidv4());
     }
-    load();
   }, []);
 
   return (
