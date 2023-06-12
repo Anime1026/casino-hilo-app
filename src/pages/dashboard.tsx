@@ -51,7 +51,7 @@ const Dashboard = () => {
     // }
     if (userId) {
       console.log(userId, "userId")
-      socketConnection = io(process.env.REACT_APP_SERVER_URL as string, { query: { userId } });
+      socketConnection = io(process.env.REACT_APP_SERVER_API as string, { query: { userId } });
       // let socketConnection = io(BASE_URL, { query: { auth: token } });
       console.log(socketConnection, "socketConnection")
       setSocket!(socketConnection)
