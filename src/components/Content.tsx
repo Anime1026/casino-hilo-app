@@ -181,7 +181,7 @@ const Content = ({
     } else {
       effectFlag = true;
     }
-  }, [effectFlag]);
+  }, [effectFlag, socket]);
 
   useEffect(() => {
     console.log(continueFlag, "continueFlag");
