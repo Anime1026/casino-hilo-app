@@ -125,7 +125,7 @@ const Content = ({
     );
 
     let arr = {
-      betId: selected_Id,
+      betId: selected_Id===100?18:selected_Id,
       betAmount: bet_Amount,
       isWin: gameResult.data.Bet_Amount,
     };
