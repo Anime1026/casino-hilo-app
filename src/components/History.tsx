@@ -63,7 +63,7 @@ export default function HistoryTable({ betHistory }: any) {
   const { socket } = useContext(PercentMulti);
 
   const [page, setPage] = React.useState(0);
-  const [active, setActive] = React.useState(true);
+  const [active, setActive] = React.useState(false);
   const [currentGame, setCurrentGame] = React.useState<CurrentGameType[]>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -93,7 +93,7 @@ export default function HistoryTable({ betHistory }: any) {
     } else {
       effectFlag = true;
     }
-  }, [effectFlag,socket]);
+  }, [effectFlag, socket]);
 
   return (
     <>
@@ -106,207 +106,95 @@ export default function HistoryTable({ betHistory }: any) {
         >
           <Button
             variant="contained"
-            className={
-              active ? "current-bet-active" : "current-history-Unactive"
-            }
-            onClick={() => {
-              setActive(true);
-            }}
-          >
-            Current Bet
-          </Button>
-          <Button
-            variant="contained"
-            className={
-              !active ? "current-bet-active" : "current-history-Unactive"
-            }
-            onClick={() => {
-              setActive(false);
-            }}
+            className="current-bet-active"
           >
             History
           </Button>
         </Stack>
       </AppBar>
-      {active ? (
-        <Paper sx={{ width: "100%", overflow: "hidden", m: "20px 0px" }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead className="history-table-head">
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {currentGame
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row: any, key: number) => {
-                    return (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={key}>
-                        {columns.map((column: any) => {
-                          const value = row[column.id];
-                          if (column.id === "isWin") {
-                            return (
-                              <TableCell
-                                key={column.id}
-                                align={column.align}
-                                sx={{ color: value ? "green" : "red" }}
-                              >
-                                {value === -1 ? "Ready!" : Number(value / 100).toFixed(2)}
-                              </TableCell>
-                            );
-                          } else if (column.id === "betAmount") {
-                            return (
-                              <TableCell
-                                key={column.id}
-                                align={column.align}
-                              >
-                                {Number(value / 100).toFixed(2)}
-                              </TableCell>
-                            );
-                          } else if (column.id === "betId") {
-                            const categoriesArray = [
-                              Categories,
-                              ColorCategories,
-                              OptionCategories,
-                              HiLoCategories,
-                            ];
+      <Paper sx={{ width: "100%", overflow: "hidden", m: "20px 0px" }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead className="history-table-head">
+              <TableRow>
+                {columnsHistory.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {betHistory
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row: any, key: number) => {
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={key}>
+                      {columnsHistory.map((column: any) => {
+                        const value = row[column.id];
+                        if (column.id === "isWin") {
+                          return (
+                            <TableCell
+                              key={column.id}
+                              align={column.align}
+                              sx={{ color: value ? "green" : "red" }}
+                            >
+                              {value === -1 ? "Ready!" : Number(value).toFixed(2)}
+                            </TableCell>
+                          );
+                        } else if (column.id === "betId") {
+                          const categoriesArray = [
+                            Categories,
+                            ColorCategories,
+                            OptionCategories,
+                            HiLoCategories,
+                          ];
 
-                            for (let i = 0; i < categoriesArray.length; i++) {
-                              const foundItem = categoriesArray[i].find(
-                                (item) => item.id === value
+                          for (let i = 0; i < categoriesArray.length; i++) {
+                            const foundItem = categoriesArray[i].find(
+                              (item) => item.id === value
+                            );
+
+                            if (foundItem) {
+                              return (
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  {foundItem.title}
+                                </TableCell>
                               );
-
-                              if (foundItem) {
-                                return (
-                                  <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                  >
-                                    {foundItem.title}
-                                  </TableCell>
-                                );
-                              }
                             }
-                          } else {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
                           }
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={currentGame.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      ) : (
-        <Paper sx={{ width: "100%", overflow: "hidden", m: "20px 0px" }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead className="history-table-head">
-                <TableRow>
-                  {columnsHistory.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-                <TableBody>
-                {betHistory
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row: any, key: number) => {
-                    return (
-                      <TableRow hover role="checkbox" tabIndex={-1} key={key}>
-                        {columnsHistory.map((column: any) => {
-                          const value = row[column.id];
-                          if (column.id === "isWin") {
-                            return (
-                              <TableCell
-                                key={column.id}
-                                align={column.align}
-                                sx={{ color: value ? "green" : "red" }}
-                              >
-                                {value === -1 ? "Ready!" : Number(value).toFixed(2)}
-                              </TableCell>
-                            );
-                          } else if (column.id === "betId") {
-                            const categoriesArray = [
-                              Categories,
-                              ColorCategories,
-                              OptionCategories,
-                              HiLoCategories,
-                            ];
 
-                            for (let i = 0; i < categoriesArray.length; i++) {
-                              const foundItem = categoriesArray[i].find(
-                                (item) => item.id === value
-                              );
-
-                              if (foundItem) {
-                                return (
-                                  <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                  >
-                                    {foundItem.title}
-                                  </TableCell>
-                                );
-                              }
-                            }
-                          
-                          } else {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {Number(value).toFixed(2)}
-                              </TableCell>
-                            );
-                          }
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={currentGame.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      )}
+                        } else {
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {Number(value).toFixed(2)}
+                            </TableCell>
+                          );
+                        }
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={currentGame.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
     </>
   );
 }
