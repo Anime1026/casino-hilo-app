@@ -84,10 +84,10 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
             </Button>
           </Stack>
           <Stack direction="column" textAlign="end">
-            <Typography className="text-color">ID: {userId}</Typography>
             <Typography>
-              {funds} <span className="text-color">FUN</span>
+              {funds} <span className="text-color">₹</span>
             </Typography>
+            <Typography className="text-color">ID: {userId}</Typography>
           </Stack>
         </Stack>
       </Container>
