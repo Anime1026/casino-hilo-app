@@ -241,7 +241,7 @@ const ControlPanel: React.FC<IControlPanel> = ({
               disabled={disableBet ? true : false}
               className="display-bet-amount"
               onChange={(e) => {
-                Number(e.target.value)
+                Number(e.target.value)>=0
                   ? setBetAmount(Number(e.target.value))
                   : setBetAmount(betAmount);
               }}
