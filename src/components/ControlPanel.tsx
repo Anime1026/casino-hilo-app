@@ -87,6 +87,12 @@ const ControlPanel: React.FC<IControlPanel> = ({
     }
   };
 
+  useEffect(() => {
+    if (betAmount > 5000) {
+      setBetAmount(5000);
+    }
+  },[betAmount])
+
   return (
     <Stack spacing={2}>
       <Stack
