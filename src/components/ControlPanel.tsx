@@ -65,8 +65,8 @@ const ControlPanel: React.FC<IControlPanel> = ({
       if (selectedId !== undefined && selectedId !== 100) {
         if (betAmount < 50) {
           toast.error("Minimum Bet is 50");
-        } else if (betAmount > 500000) {
-          toast.error("Maximum Bet is 500000");
+        } else if (betAmount > 5000) {
+          toast.error("Maximum Bet is 5000");
         } else if (betAmount > funds) {
           toast.error("Not enough funds, please make a deposit");
         } else {
@@ -252,9 +252,9 @@ const ControlPanel: React.FC<IControlPanel> = ({
             <Typography
               className="btnPlus"
               onClick={() => {
-                betAmount <= 10000
+                betAmount <= 5000
                   ? setBetAmount(betAmount + 50)
-                  : setBetAmount(betAmount);
+                  : setBetAmount(5000);
               }}
             >
               +
