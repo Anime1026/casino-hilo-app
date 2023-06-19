@@ -89,9 +89,10 @@ const ControlPanel: React.FC<IControlPanel> = ({
 
   useEffect(() => {
     if (betAmount > 5000) {
-      setBetAmount(5000);
+      if (!isBetted)
+        setBetAmount(5000);
     }
-  },[betAmount])
+  }, [betAmount])
 
   return (
     <Stack spacing={2}>
@@ -116,9 +117,8 @@ const ControlPanel: React.FC<IControlPanel> = ({
                 <Grid key={key} item md={12 / 11}>
                   <Stack
                     onClick={() => setSelectedId!(item.id)}
-                    className={`count-box ${
-                      item.id === selectedId ? "active" : ""
-                    }`}
+                    className={`count-box ${item.id === selectedId ? "active" : ""
+                      }`}
                   >
                     <Typography className="text">{item.title}</Typography>
                   </Stack>
@@ -143,9 +143,8 @@ const ControlPanel: React.FC<IControlPanel> = ({
                     key={key}
                     direction="row"
                     onClick={() => setSelectedId!(item.id)}
-                    className={`count-box ${
-                      item.id === selectedId ? "active" : ""
-                    }`}
+                    className={`count-box ${item.id === selectedId ? "active" : ""
+                      }`}
                     sx={{
                       background: item.bgColor,
                       borderColor: item.borderColor,
@@ -173,9 +172,8 @@ const ControlPanel: React.FC<IControlPanel> = ({
                       key={key}
                       direction="row"
                       onClick={() => setSelectedId!(item.id)}
-                      className={`count-box ${
-                        item.id === selectedId ? "active" : ""
-                      }`}
+                      className={`count-box ${item.id === selectedId ? "active" : ""
+                        }`}
                     >
                       <Typography className="color-text">
                         {item.title}
@@ -202,9 +200,8 @@ const ControlPanel: React.FC<IControlPanel> = ({
                     flex={1}
                     direction="row"
                     onClick={() => setSelectedId!(item.id)}
-                    className={`${item.text} count-box hi-lo-tab ${
-                      item.id === selectedId ? "active" : ""
-                    }`}
+                    className={`${item.text} count-box hi-lo-tab ${item.id === selectedId ? "active" : ""
+                      }`}
                   >
                     <Typography className="color-text">{item.title}</Typography>
                     {item.id === 18 ? (
@@ -247,7 +244,7 @@ const ControlPanel: React.FC<IControlPanel> = ({
               disabled={disableBet ? true : false}
               className="display-bet-amount"
               onChange={(e) => {
-                Number(e.target.value)>=0
+                Number(e.target.value) >= 0
                   ? setBetAmount(Number(e.target.value))
                   : setBetAmount(betAmount);
               }}
