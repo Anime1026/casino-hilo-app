@@ -203,7 +203,7 @@ export const KeyboardNumbers: KeyboardNumbersType[] = [
   { id: 10, title: "50", amount: 50 },
   { id: 11, title: "100", amount: 100 },
   { id: 12, title: "1k", amount: 1000 },
-  { id: 13, title: "10k", amount: 10000 },
+  { id: 13, title: "5k", amount: 10000 },
 ];
 
 export const HistoryCards: HistoryCardsType[] = [
