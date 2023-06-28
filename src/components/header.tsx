@@ -130,7 +130,7 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            If you click the "Agree", you will refund your funds of all!
+            If you click the "Agree", you will be returned to the homepage!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
