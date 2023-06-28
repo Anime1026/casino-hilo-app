@@ -80,7 +80,7 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
                 setdialogOpen(true);
               }}
             >
-              Refund
+              Reback
             </Button>
           </Stack>
           <Stack direction="column" textAlign="end">
