@@ -232,9 +232,9 @@ const ControlPanel: React.FC<IControlPanel> = ({
             <Typography
               className="btnPlus"
               onClick={() => {
-                betAmount >= 50
+                betAmount >= 100
                   ? setBetAmount(betAmount - 50)
-                  : setBetAmount(betAmount);
+                  : setBetAmount(50);
               }}
             >
               -

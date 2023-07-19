@@ -67,7 +67,7 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
       <Container>
         <Stack
           direction="row"
-          justifyContent="flex-end"
+          justifyContent="space-between"
           alignItems="center"
           className="box"
           gap={2}

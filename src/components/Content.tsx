@@ -159,7 +159,9 @@ const Content = ({
           gameHistory: GameHistoryType[];
           currentGame: CurrentGameType[];
         }) => {
-          setHistoryCard(data.gameHistory);
+          setTimeout(() => {
+            setHistoryCard(data.gameHistory);
+          },1000)
           if (data.time === 1) {
             setDisableBet!(true);
           }
