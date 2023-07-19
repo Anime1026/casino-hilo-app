@@ -161,7 +161,7 @@ const Content = ({
         }) => {
           setTimeout(() => {
             setHistoryCard(data.gameHistory);
-          },1000)
+          },2000)
           if (data.time === 1) {
             setDisableBet!(true);
           }
