@@ -160,8 +160,9 @@ const Content = ({
           currentGame: CurrentGameType[];
         }) => {
           setTimeout(() => {
+            console.log("showing card within 2.5s");
             setHistoryCard(data.gameHistory);
-          },2000)
+          },2500)
           if (data.time === 1) {
             setDisableBet!(true);
           }
