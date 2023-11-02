@@ -56,12 +56,13 @@ const ControlPanel: React.FC<IControlPanel> = ({
         { userId, selectedId }
       );
       setIsBetted!(false);
-      setSelectedId!(100);
+      setSelectedId!(50);
       setFunds!(fund);
       setBetAmount(0);
       setContinueFlag!(false);
       toast.success(`You Won the ${betAmount}`);
     } else {
+      console.log(selectedId);
       if (selectedId !== undefined && selectedId !== 100) {
         if (betAmount < 50) {
           toast.error("Minimum Bet is 50");
@@ -76,7 +77,6 @@ const ControlPanel: React.FC<IControlPanel> = ({
             `${process.env.REACT_APP_SERVER_URL}/api/game/bet-game-ready`,
             { userId, selectedId, betAmount }
           );
-          console.log("stress");
           setDisableBet!(true);
           setFunds!(leftFunds);
           setIsBetted!(!isBetted);

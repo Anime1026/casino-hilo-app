@@ -9,7 +9,7 @@ let flag = true;
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [socket, setSocket] = useState<any>("");
   const [funds, setFunds] = useState<number>(0);
-  const [selectedId, setSelectedId] = useState<number>(18);
+  const [selectedId, setSelectedId] = useState<number>(50);
   const [isBetted, setIsBetted] = useState<Boolean>(false);
   const [disableBet, setDisableBet] = useState<Boolean>(false);
   const [userId, setUserId] = useState<number>(0);

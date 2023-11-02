@@ -28,7 +28,7 @@ const value = {
   continueFlag: false,
   disableBet: false,
   isBetted: false,
-  selectedId: 18,
+  selectedId: 14,
   socket: "",
 };
 

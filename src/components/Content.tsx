@@ -19,7 +19,7 @@ let effectFlag = false;
 let prevNumber = 4;
 let betFlag: Boolean = false;
 let bet_Amount = 100;
-let selected_Id = 18;
+let selected_Id = 50;
 let hMulti = 1.5;
 let lMulti = 4;
 let user_Id = 0;
@@ -50,7 +50,7 @@ const Content = ({
 
   const CardRef = useRef(null);
   const [HistoryCard, setHistoryCard] = useState<HistoryCardsType[] | any>([]);
-  const [curCard, setCurCard] = useState<number>(-1);
+  const [curCard, setCurCard] = useState<number>(0);
   const [timeCount, setTimeCount] = useState<number>();
   const [stopCard, setStopCard] = useState<Boolean>(false);
   const EqualImg = "https://nar-fg.cchhllpp.net/prd/images/hilo/svg/equal.svg";
@@ -95,8 +95,8 @@ const Content = ({
     setTimeout(() => {
       setCurCard(rndNumber);
       setDisableBet!(false);
-      setSelectedId!(100);
-      selected_Id = 100;
+      setSelectedId!(50);
+      // setSelectedId!(50);
     }, 500);
   }, []);
 
@@ -104,17 +104,17 @@ const Content = ({
     if (isBetted) {
       betFlag = isBetted;
       bet_Amount = Number(betAmount);
-      selected_Id = selectedId;
       user_Id = userId;
     }
   }, [isBetted, selectedId]);
 
   const betGame = async () => {
+    console.log("selectedId:", selectedId);
     let gameResult = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/api/game/bet-game`,
       {
         bet_Amount,
-        selected_Id,
+        selectedId,
         betFlag,
         hMulti,
         lMulti,
@@ -125,7 +125,7 @@ const Content = ({
     );
 
     let arr = {
-      betId: selected_Id===100?18:selected_Id,
+      betId: selectedId === 100 ? 18 : selectedId,
       betAmount: bet_Amount,
       isWin: gameResult.data.Bet_Amount,
     };
@@ -150,8 +150,17 @@ const Content = ({
     }
   };
 
+
   useEffect(() => {
-    if (effectFlag && socket) {
+    console.log(' betFlag');
+    console.log(betFlag);
+    if (betFlag && selectedId !== 50) {
+      betGame();
+    }
+  }, [selectedId, betFlag])
+
+  useEffect(() => {
+    if (socket) {
       socket.on(
         "real-time",
         (data: {
@@ -162,29 +171,24 @@ const Content = ({
           setTimeout(() => {
             console.log("showing card within 2.5s");
             setHistoryCard(data.gameHistory);
-          },2500)
+          }, 2500)
           if (data.time === 1) {
-            setDisableBet!(true);
+            // setDisableBet!(true);
           }
-          if (data.time === 0) {
-            if (betFlag && selected_Id !== 100) {
-              betGame();
-            }
-            setStopCard(true);
-            FlipCard(data.gameHistory[0].id as number);
-          } else {
-            setCurCard(
-              data?.gameHistory?.[0]?.id >= 0 ? data?.gameHistory?.[0]?.id : -1
-            );
-            setStopCard(false);
-            setTimeCount(data.time);
-          }
+          // if (data.time === 0) {
+          // setStopCard(true);
+          FlipCard(data.gameHistory[0].id as number);
+          // } else {
+          setCurCard(
+            data?.gameHistory?.[0]?.id >= 0 ? data?.gameHistory?.[0]?.id : -1
+          );
+          // setStopCard(false);
+          setTimeCount(data.time);
+          // }
         }
       );
-    } else {
-      effectFlag = true;
     }
-  }, [effectFlag, socket]);
+  }, [socket]);
 
   useEffect(() => {
     console.log(continueFlag, "continueFlag");
@@ -232,11 +236,11 @@ const Content = ({
         <Box className="card-animation-scene" ref={CardRef}>
           <Box className="card-front">
             <img
-              src={`/hilo/Card/${curCard}.png`}
+              src={`/Card/${curCard}.png`}
               alt="card"
               className="playing-card"
             />
-            <span
+            {/* <span
               className="loader"
               style={{ display: stopCard ? "none" : "block" }}
             ></span>
@@ -245,7 +249,7 @@ const Content = ({
               style={{ display: stopCard ? "none" : "block" }}
             >
               {timeCount}
-            </span>
+            </span> */}
           </Box>
           <Box className="card-back">
             <img src={BackCard} alt="card" className="playing-card" />
