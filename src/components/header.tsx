@@ -3,18 +3,18 @@ import {
   Box,
   Button,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+  // Dialog,
+  // DialogActions,
+  // DialogContent,
+  // DialogContentText,
+  // DialogTitle,
   Modal,
   Stack,
   Typography,
 } from "@mui/material";
 import { MyContext } from "../context/GameContext";
-import axios from "axios";
-import { toast } from "react-toastify";
+// import axios from "axios";
+// import { toast } from "react-toastify";
 
 interface IHeaderProps {
   depositFlag: Boolean;
@@ -33,28 +33,29 @@ const style = {
 };
 
 const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
-  const { funds, userId, setFunds } = useContext(MyContext);
+  // const { funds, userId, setFunds } = useContext(MyContext);
+  const { funds, userId } = useContext(MyContext);
 
   const [open, setOpen] = useState(false);
-  const [dialogOpen, setdialogOpen] = useState(false);
-  const dialoghandleClose = () => setdialogOpen(false);
+  // const [dialogOpen, setdialogOpen] = useState(false);
+  // const dialoghandleClose = () => setdialogOpen(false);
 
-  const Refund = () => {
-    setFunds!(0);
-    dialoghandleClose();
-    toast.success("Refun Successed!");
-    axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/api/game/save-game`, {
-        funds,
-        userId,
-      })
-      .then((res) => {
-        document.location.href = "https://induswin.com/#/";
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const Refund = () => {
+  //   setFunds!(0);
+  //   dialoghandleClose();
+  //   toast.success("Refun Successed!");
+  //   axios
+  //     .post(`${process.env.REACT_APP_SERVER_URL}/api/game/save-game`, {
+  //       funds,
+  //       userId,
+  //     })
+  //     .then((res) => {
+  //       document.location.href = "https://induswin.com/#/";
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   useEffect(() => {
     if (depositFlag) {
@@ -67,12 +68,12 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
       <Container>
         <Stack
           direction="row"
-          justifyContent="space-between"
+          justifyContent="end"
           alignItems="center"
           className="box"
           gap={2}
         >
-          <Stack>
+          {/* <Stack>
             <Button
               variant="contained"
               className="refund"
@@ -82,10 +83,10 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
             >
               Reback
             </Button>
-          </Stack>
+          </Stack> */}
           <Stack direction="column" textAlign="end">
             <Typography>
-              {funds} <span className="text-color">₹</span>
+              {funds.toFixed(2)} <span className="text-color">₹</span>
             </Typography>
             <Typography className="text-color">ID: {userId}</Typography>
           </Stack>
@@ -120,7 +121,7 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
           </Stack>
         </Box>
       </Modal>
-      <Dialog
+      {/* <Dialog
         open={dialogOpen}
         onClose={dialoghandleClose}
         aria-labelledby="responsive-dialog-title"
@@ -141,7 +142,7 @@ const Header: React.FC<IHeaderProps> = ({ depositFlag }) => {
             Agree
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </Stack>
   );
 };
