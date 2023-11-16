@@ -96,7 +96,7 @@ export default function HistoryTable({ betHistory }: any) {
   }, [effectFlag, socket]);
 
   return (
-    <>
+    <div style={{ width: "100%" }}>
       <AppBar position="static" color="primary" className="game-history">
         <Stack
           spacing={2}
@@ -112,7 +112,7 @@ export default function HistoryTable({ betHistory }: any) {
           </Button>
         </Stack>
       </AppBar>
-      <Paper sx={{ width: "100%", overflow: "hidden", m: "20px 0px" }}>
+      <Paper sx={{ overflow: "hidden", m: "20px 0px", width: "100%" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead className="history-table-head">
@@ -195,6 +195,6 @@ export default function HistoryTable({ betHistory }: any) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-    </>
+    </div>
   );
 }

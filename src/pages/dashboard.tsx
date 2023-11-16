@@ -92,7 +92,7 @@ const Dashboard = () => {
             setBetAmount={setBetAmount}
           />
         </Grid>
-        <Grid md={12} item>
+        <Grid md={12} item style={{ width: "100%" }}>
           <BetHistory betHistory={betHistory} />
         </Grid>
       </Grid>
